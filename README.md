@@ -13,7 +13,7 @@ This is a 3rd party library Not affiliated with smsbrana.cz, the service provide
 ## Installation
 
 ```
-dotnet add package SmsBranaClient
+dotnet add package SmsBrana
 ```
 
 ## Usage

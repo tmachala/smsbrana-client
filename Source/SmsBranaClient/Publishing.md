@@ -14,7 +14,7 @@ On macOS/Linux this is stored in `~/.nuget/NuGet/NuGet.Config`
 
 ## Publishing a New Version
 
-Run these commands carefully one by one:
+Run these commands **in this directory**:
 
 ```sh
 # Increment before publishing
@@ -33,6 +33,8 @@ git tag -a "v${VERSION}" -m "Release v${VERSION}"
 git push origin "v${VERSION}"
 
 # Pack & publish
-dotnet pack -c Release -p:Version=${VERSION} -o artifacts
+dotnet pack SmsBranaClient.csproj -c Release -p:Version=${VERSION} -o artifacts
+
 dotnet nuget push artifacts/*.nupkg --source nuget.org --skip-duplicate
+# Alternatively, you can drag&drop the .nupkg file into the NuGet web UI
 ```
