@@ -8,7 +8,6 @@
     </PropertyGroup>
     
     <PropertyGroup>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>SmsBrana</PackageId>
         <AssemblyName>SmsBranaClient</AssemblyName>
         <Authors>Tomáš Machala</Authors>
