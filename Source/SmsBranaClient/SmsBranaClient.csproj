@@ -10,6 +10,7 @@
     <PropertyGroup>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>SmsBrana</PackageId>
+        <AssemblyName>SmsBranaClient</AssemblyName>
         <Authors>Tomáš Machala</Authors>
         <Description>A .NET library for sending SMS messages via smsbrana.cz</Description>
         <Lang>en-US</Lang>
