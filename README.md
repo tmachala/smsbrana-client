@@ -6,7 +6,7 @@ This is a 3rd party library Not affiliated with smsbrana.cz, the service provide
 
 ## Compatibility
 
-* .NET 10
+* .NET 8
 * Any platform supported by .NET
 * Any OS supported by .NET
 
