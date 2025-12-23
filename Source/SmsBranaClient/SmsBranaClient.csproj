@@ -6,6 +6,19 @@
         <Nullable>enable</Nullable>
         <RootNamespace>SmsBranaClient</RootNamespace>
     </PropertyGroup>
+    
+    <PropertyGroup>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageId>SmsBranaClient</PackageId>
+        <Authors>Tomáš Machala</Authors>
+        <Description>A .NET library for sending SMS messages via smsbrana.cz</Description>
+        <Lang>en-US</Lang>
+        <Copyright>Copyright (c) Tomáš Machala 2025</Copyright>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageProjectUrl>https://github.com/tmachala/smsbrana-client</PackageProjectUrl>
+        <PackageRepository>https://github.com/tmachala/smsbrana-client</PackageRepository>
+    </PropertyGroup>
 
     <ItemGroup>
         <InternalsVisibleTo Include="UnitTests" />
