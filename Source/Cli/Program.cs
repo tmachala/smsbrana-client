@@ -48,9 +48,8 @@ public class Program
         // as a single message.
         //await SendSmsAsync(client, myPhoneNumber!, "123456789 123456789 123456789 123456789 123456789 123456789 🤡❤️🦛🎉👍", AllowUnicode.OnlyWhenSamePrice);
         
-        // This message has 71 characters including emojis, which makes it a 2-part message when sent as UCS2.
-        // A multipart UCS2 message can have 67 characters per part.
-        await SendSmsAsync(client, myPhoneNumber!, "123456789 123456789 123456789 123456789 123456789 123456789 🤡❤️🦛🎉👍A", AllowUnicode.OnlyWhenSamePrice);
+        // 79 chars --> should be sent as 2 messages.
+        //await SendSmsAsync(client, myPhoneNumber!, "Příliš žluťoučký kůň úpěl ďábelské ódy. Příliš žluťoučký kůň úpěl ďábelské ódy.", AllowUnicode.AlwaysWhenNeeded);
     }
     
     private static async Task SendSmsAsync(ISmsBranaClient client, string phoneNumber, string message, AllowUnicode allowUnicode)
