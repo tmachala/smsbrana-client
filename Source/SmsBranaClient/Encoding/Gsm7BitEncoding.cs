@@ -55,23 +55,33 @@ internal static class Gsm7BitEncoding
     {
         var sb = new StringBuilder();
 
-        foreach (var t in text)
+        foreach (var rune in text.EnumerateRunes())
         {
-            // When the character is representable as is
-            if (Gsm7Basic.Contains(t) || Gsm7Extended.Contains(t))
+            // When it's a surrogate pair (such as an emoji)
+            if (!rune.IsBmp)
             {
-                if (t == 'é' && eAcuteHandling == EAcuteHandling.Strip)
+                sb.Append('?');
+                continue;
+            }
+            
+            var c = (char)rune.Value;
+            var s = rune.ToString();
+            
+            // When the character is representable as is
+            if (Gsm7Basic.Contains(c) || Gsm7Extended.Contains(c))
+            {
+                if (c == 'é' && eAcuteHandling == EAcuteHandling.Strip)
                     sb.Append('e');
-                else if (t == 'É' && eAcuteHandling == EAcuteHandling.Strip)
+                else if (c == 'É' && eAcuteHandling == EAcuteHandling.Strip)
                     sb.Append('E');
                 else
-                    sb.Append(t);
+                    sb.Append(rune);
                 
                 continue;
             }
             
             // When the character is representable after diacritic removal
-            var normalized = RemoveDiacritics(t.ToString())[0];
+            var normalized = RemoveDiacritics(s)[0];
             if (Gsm7Basic.Contains(normalized) || Gsm7Extended.Contains(normalized))
             {
                 sb.Append(normalized);
@@ -79,7 +89,7 @@ internal static class Gsm7BitEncoding
             }
 
             // When the character can be substituted with a representable one (if allowed)
-            if (replaceSimilarChars && SimilarChars.TryGetValue(t, out var replacement))
+            if (replaceSimilarChars && SimilarChars.TryGetValue(c, out var replacement))
             {
                 sb.Append(replacement);
                 continue;

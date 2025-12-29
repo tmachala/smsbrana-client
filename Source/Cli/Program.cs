@@ -40,10 +40,25 @@ public class Program
             return;
         }
         
-        var smsBuilder = new SendSmsRequestBuilder("Příliš žluťoučký kůň úpěl ďábelské ódy", myPhoneNumber!)
+        //await SendSmsAsync(client, myPhoneNumber!, "Příliš žluťoučký kůň úpěl ďábelské ódy", AllowUnicode.OnlyWhenSamePrice);
+        
+        
+        // The emojis are surrogate pairs (2 characters each). They also force UCS2 encoding, which makes the message
+        // length limit 70 characters. Here we have 5 emojis (10 UCS2 characters) --> 70 chars total. Should be sent
+        // as a single message.
+        //await SendSmsAsync(client, myPhoneNumber!, "123456789 123456789 123456789 123456789 123456789 123456789 🤡❤️🦛🎉👍", AllowUnicode.OnlyWhenSamePrice);
+        
+        // This message has 71 characters including emojis, which makes it a 2-part message when sent as UCS2.
+        // A multipart UCS2 message can have 67 characters per part.
+        await SendSmsAsync(client, myPhoneNumber!, "123456789 123456789 123456789 123456789 123456789 123456789 🤡❤️🦛🎉👍A", AllowUnicode.OnlyWhenSamePrice);
+    }
+    
+    private static async Task SendSmsAsync(ISmsBranaClient client, string phoneNumber, string message, AllowUnicode allowUnicode)
+    {
+        var smsBuilder = new SendSmsRequestBuilder(message, phoneNumber!)
         {
             // A sane default: use Unicode but only when it doesn't cost extra
-            AllowUnicode = AllowUnicode.OnlyWhenSamePrice,
+            AllowUnicode = allowUnicode,
             
             // Works well for the Czech language (see README.md).
             EAcuteHandling = EAcuteHandling.Strip,

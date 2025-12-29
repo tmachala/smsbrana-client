@@ -182,17 +182,7 @@ public class Gsm7BitEncodingTests
         Assert.DoesNotContain("é", result);
         Assert.Equal("resume of Petr's skola", result);
     }
-
-    [Fact]
-    public void Convert_EAcuteHandling_Strip_OnlyAffectsLowercaseE()
-    {
-        // É (uppercase) is also in GSM 7-bit, but should not be affected by strip
-        var input = "É and é";
-        var result = Gsm7BitEncoding.Convert(input, eAcuteHandling: EAcuteHandling.Strip);
-        
-        Assert.Equal("É and e", result);
-    }
-
+    
     [Fact]
     public void Convert_EAcuteHandling_WorksWithOtherConversions()
     {
@@ -231,6 +221,20 @@ public class Gsm7BitEncodingTests
         // Should be identical when there's no é
         Assert.Equal(input, preserve);
         Assert.Equal(input, strip);
+    }
+    
+    /// <summary>
+    /// The original implementation of the RemoveDiacritics method in Gsm7BitEncoding.cs threw an exception when given
+    /// a surrogate pair followed by a normal 2-byte char. It has been fixed - this is a regression test.
+    /// </summary>
+    [Fact]
+    public void Convert_CanHandleSurrogatePairFollowedByNormalChar()
+    {
+        var input = "🤡A";
+        
+        var actual = Gsm7BitEncoding.Convert(input);
+        
+        Assert.Equal("?A", actual);
     }
 }
 

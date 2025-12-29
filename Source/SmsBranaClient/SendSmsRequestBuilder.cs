@@ -82,7 +82,7 @@ public class SendSmsRequestBuilder
         var normalizedMessage = Message.ReplaceLineEndings("\n").Trim();
         
         // When the message contains nothing but GSM 7-bit characters or when we want to force GSM 7-bit
-        if (Gsm7BitEncoding.IsGsm7(normalizedMessage) || AllowUnicode == AllowUnicode.Never)
+        if (AllowUnicode == AllowUnicode.Never || Gsm7BitEncoding.IsGsm7(normalizedMessage))
         {
             return (Gsm7BitEncoding.Convert(normalizedMessage, EAcuteHandling), SmsBranaEncoding.Gsm7Bit);   
         }
