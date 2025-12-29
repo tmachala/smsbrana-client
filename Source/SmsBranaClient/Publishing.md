@@ -18,7 +18,7 @@ Run these commands **in this directory**:
 
 ```sh
 # Increment before publishing
-VERSION='1.0.3'
+VERSION='1.0.4'
 
 # Ensure clean state (stop here if it isn't)
 git status
