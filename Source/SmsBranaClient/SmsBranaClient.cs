@@ -57,7 +57,7 @@ public class SmsBranaClient : ISmsBranaClient
             Price = root.ReadRequiredDecimal("price"),
             SmsCount = root.ReadRequiredInt("sms_count"),
             UserId = root.ReadOptionalString("user_id"),
-            SmsId = root.ReadRequiredLong("sms_count")
+            SmsId = root.ReadRequiredLong("sms_id")
         };
         
         return SendSmsResult.FromSuccess(res);
